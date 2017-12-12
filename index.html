@@ -11,24 +11,46 @@
     <script src="js/Jquery/jquery-1.10.2.min.js"></script>
 </head>
 <body>
-
+    <!--遮罩层-开始前输入-->
+    <div class="before-start">
+        <div class="start-setting">
+            <div class="setting-title">
+                <h2>请选择难度</h2>
+            </div>
+            <div class="setting-buttons">
+                <input id="DefaultEasyGameSetting" type="button" value=" 简 单 " />
+                <input id="DefaultNormalGameSetting"  type="button" value=" 普 通 " />
+                <input id="DefaultHardGameSetting" type="button" value=" 困 难 " />
+                <input id="CustomGameSetting" type="button" value=" 自 设 " />
+            </div>
+            <div class="input-settings">
+                <span class="input-setting">卡片种类： <input type="text" id="TypeNum" /> 种 <span class="attention">(每种卡片将会出现2张)</span></span>
+                <span class="input-setting">倒计时： <input type="text" id="TypeNum" /> 秒 <span class="attention">(输入0或不输入时不计时)</span></span>
+                <span class="input-setting">允许失误次数： <input type="text" id="TypeNum" /> 秒 <span class="attention">(不输入时不限失误次数)</span></span>
+            </div>
+            <div class="finish-setting">
+                <input id="AcceptSetting" type="button" value=" 开     始 " />
+            </div>
+        </div>
+        <div class="mask"></div>
+    </div>
     <div class="container">
         <header>
             <h1>Matching Game</h1>
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+            </ul>
 
-        	<span class="moves">3</span> Moves
+            <span class="moves">3</span> Moves
 
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+                <i class="fa fa-repeat"></i>
+            </div>
         </section>
 
         <ul class="deck">

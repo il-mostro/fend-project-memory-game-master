@@ -1,11 +1,10 @@
 /*
- * Create a list that holds all of your cards
+ * 游戏开始 设置
  */
+var i = [];
 
 
-/*
- * 游戏开始
- */
+
 
 $(function () {
     $(".card").click(function () {
