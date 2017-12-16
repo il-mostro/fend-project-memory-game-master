@@ -145,7 +145,7 @@ h1 {
     }
 
         .deck .card:hover{
-
+            background: red;
         }
 
         .deck .card.open {
