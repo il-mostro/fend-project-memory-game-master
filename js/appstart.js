@@ -5,6 +5,7 @@
 //»ù±¾ÉèÖÃ
 var pts = 0;//·ÖÊı
 
+var step = 0;//²½Êı
 
 //ÒÔÏÂÎª¿É×Ô¶¨ÒåÄÚÈİ
 var TypeNum = 8;//¿¨Æ¬ÖÖÀàÊıÁ¿£¨Ä¬ÈÏ8£¬µ«ÊÇÉè¶¨Ê±²»ÔÊĞíĞ¡ÓÚ8£©
@@ -14,13 +15,30 @@ var AllowMissTimes = 0;//ÔÊĞíÊ§Îó´ÎÊı £¨0Îª³õÊ¼Öµ£¬´ËÊ±²»Éè¶¨gameset alert Óë±äÉ
 var TypeList = [];//Óë¿¨Æ¬ÖÖÀàÊıÁ¿°éÉú¡£¿¨Æ¬ÖÖÀàĞòÁĞ
 var CardsArray = [];//¿¨Æ¬µã»÷ĞòÁĞ
 
+var OpenCardCache = '';
+var clicklock = false;
+
 $(function () {
-    initCard();
-    initOnclick();
+    $('#AcceptSetting').click(function () {
+        //ÉèÖÃ³õÊ¼Éè¶¨Öµ
+        initCards();
+        //µ¹¼ÆÊ±¿ªÊ¼
+    })
+    $('.restart').click(function () {
+        //ÉèÖÃ³õÊ¼Éè¶¨Öµ
+        initCards();
+        //µ¹¼ÆÊ±¿ªÊ¼
+    });
+    initCards();
 })
 
 //ÖØĞÂ×¼±¸Cards
-function initCard() {
+function initCards() {
+    OpenCardCache = '';
+    step = 0;
+    $(".moves").html(step);
+    clicklock = false;
+
     TypeList = getArrayItems(TypeNum);
     CardsArray = TypeList.concat(TypeList.reverse());
     CardsArray = shuffle(CardsArray);
@@ -32,23 +50,56 @@ function initCard() {
     }
     $('ul.deck').html(cardsHtml);
 
+    initCardsOnclick();
 }
 
-function initOnclick() {
-
-
-
-
-    $('#AcceptSetting').click(function () {
-    })
-
+function initCardsOnclick() {    
     $(".card").click(function () {
-        debugger;
+
+        //clicklock Îª·ÀÖ¹¿ìËÙµã»÷Ôì³Ébug¼ÓµÄËø
+        if (clicklock) return;
+        clicklock = true;
+
+        step += 1;
+        $(".moves").html(step);
+        //Ôö¼Ó¼ÆÊı
+
         if ($(this).hasClass('match') || $(this).hasClass('show')) return;//ÒÑÆ¥Åä,ÒÑ·­Ãæ²»ÔÙ×÷·´Ó¦
         let classname = CardsArray[$(".card").index(this)]//´ÓĞòÁĞÖĞÈ¡³öclassÃû
-        $(this).addClass('open').addClass('show');
         $(this).find('i').addClass(classname);
 
+        if (OpenCardCache == '') {
+            OpenCardCache = classname;
+            $(this).addClass('open').addClass('show');
+            clicklock = false;
+        } else {
+            if (OpenCardCache == classname) {
+                $(this).addClass('match');
+                $('.open.show').removeClass('open').removeClass('show').addClass('match');
+                TypeList.splice(jQuery.inArray(classname, TypeList), 1);
+
+                if (TypeList.length == 0) {
+                    alert("ÄãÓ®ÁË£¡");
+                    //µ¹¼ÆÊ±Í£Ö¹
+                    //¼ÆËã·ÖÊı£¨²½ÊıÓëÊ±¼ä£¿£©
+
+                    //´æ´¢ÅÅĞĞ°ñ
+                    //ÏÔÊ¾ÅÅĞĞ°ñ
+
+                    //·µ»Ø³õÊ¼×´Ì¬
+                }
+                clicklock = false;
+            }
+            else {
+                //ÅĞ¶ÏÊ§Îó¶àÉÙ´Î,Èç¹û³¬¹ıÔòGameOver ²¢ÖĞ¶Ï
+                
+                $(this).addClass('open').addClass('show');
+
+                setTimeout("$('.open.show').removeClass('open').removeClass('show');clicklock = false;",1500);
+
+            }
+            OpenCardCache = '';
+        }
     })
 
 
