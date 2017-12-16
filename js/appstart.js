@@ -1,38 +1,38 @@
 /*
- * ÓÎÏ·¿ªÊ¼ ÉèÖÃ
+ * æ¸¸æˆå¼€å§‹ è®¾ç½®
  */
 
-//»ù±¾ÉèÖÃ
-var pts = 0;//·ÖÊı
+//åŸºæœ¬è®¾ç½®
+var pts = 0;//åˆ†æ•°
 
-var step = 0;//²½Êı
+var step = 0;//æ­¥æ•°
 
-//ÒÔÏÂÎª¿É×Ô¶¨ÒåÄÚÈİ
-var TypeNum = 8;//¿¨Æ¬ÖÖÀàÊıÁ¿£¨Ä¬ÈÏ8£¬µ«ÊÇÉè¶¨Ê±²»ÔÊĞíĞ¡ÓÚ8£©
-var TimeLimit = 0;//µ¹¼ÆÊ±£¨0Îª³õÊ¼Öµ£¬´ËÊ±²»Éè¶¨µ¹¼ÆÊ±Óëgameset alert£©
-var AllowMissTimes = 0;//ÔÊĞíÊ§Îó´ÎÊı £¨0Îª³õÊ¼Öµ£¬´ËÊ±²»Éè¶¨gameset alert Óë±äÉ«£©
+//ä»¥ä¸‹ä¸ºå¯è‡ªå®šä¹‰å†…å®¹
+var TypeNum = 8;//å¡ç‰‡ç§ç±»æ•°é‡ï¼ˆé»˜è®¤8ï¼Œä½†æ˜¯è®¾å®šæ—¶ä¸å…è®¸å°äº8ï¼‰
+var TimeLimit = 0;//å€’è®¡æ—¶ï¼ˆ0ä¸ºåˆå§‹å€¼ï¼Œæ­¤æ—¶ä¸è®¾å®šå€’è®¡æ—¶ä¸gameset alertï¼‰
+var AllowMissTimes = 0;//å…è®¸å¤±è¯¯æ¬¡æ•° ï¼ˆ0ä¸ºåˆå§‹å€¼ï¼Œæ­¤æ—¶ä¸è®¾å®šgameset alert ä¸å˜è‰²ï¼‰
 
-var TypeList = [];//Óë¿¨Æ¬ÖÖÀàÊıÁ¿°éÉú¡£¿¨Æ¬ÖÖÀàĞòÁĞ
-var CardsArray = [];//¿¨Æ¬µã»÷ĞòÁĞ
+var TypeList = [];//ä¸å¡ç‰‡ç§ç±»æ•°é‡ä¼´ç”Ÿã€‚å¡ç‰‡ç§ç±»åºåˆ—
+var CardsArray = [];//å¡ç‰‡ç‚¹å‡»åºåˆ—
 
 var OpenCardCache = '';
 var clicklock = false;
 
 $(function () {
     $('#AcceptSetting').click(function () {
-        //ÉèÖÃ³õÊ¼Éè¶¨Öµ
+        //è®¾ç½®åˆå§‹è®¾å®šå€¼
         initCards();
-        //µ¹¼ÆÊ±¿ªÊ¼
+        //å€’è®¡æ—¶å¼€å§‹
     })
     $('.restart').click(function () {
-        //ÉèÖÃ³õÊ¼Éè¶¨Öµ
+        //è®¾ç½®åˆå§‹è®¾å®šå€¼
         initCards();
-        //µ¹¼ÆÊ±¿ªÊ¼
+        //å€’è®¡æ—¶å¼€å§‹
     });
     initCards();
 })
 
-//ÖØĞÂ×¼±¸Cards
+//é‡æ–°å‡†å¤‡Cards
 function initCards() {
     OpenCardCache = '';
     step = 0;
@@ -56,16 +56,16 @@ function initCards() {
 function initCardsOnclick() {    
     $(".card").click(function () {
 
-        //clicklock Îª·ÀÖ¹¿ìËÙµã»÷Ôì³Ébug¼ÓµÄËø
+        //clicklock ä¸ºé˜²æ­¢å¿«é€Ÿç‚¹å‡»é€ æˆbugåŠ çš„é”
         if (clicklock) return;
         clicklock = true;
 
         step += 1;
         $(".moves").html(step);
-        //Ôö¼Ó¼ÆÊı
+        //å¢åŠ è®¡æ•°
 
-        if ($(this).hasClass('match') || $(this).hasClass('show')) return;//ÒÑÆ¥Åä,ÒÑ·­Ãæ²»ÔÙ×÷·´Ó¦
-        let classname = CardsArray[$(".card").index(this)]//´ÓĞòÁĞÖĞÈ¡³öclassÃû
+        if ($(this).hasClass('match') || $(this).hasClass('show')) return;//å·²åŒ¹é…,å·²ç¿»é¢ä¸å†ä½œååº”
+        let classname = CardsArray[$(".card").index(this)]//ä»åºåˆ—ä¸­å–å‡ºclasså
         $(this).find('i').addClass(classname);
 
         if (OpenCardCache == '') {
@@ -79,19 +79,19 @@ function initCardsOnclick() {
                 TypeList.splice(jQuery.inArray(classname, TypeList), 1);
 
                 if (TypeList.length == 0) {
-                    alert("ÄãÓ®ÁË£¡");
-                    //µ¹¼ÆÊ±Í£Ö¹
-                    //¼ÆËã·ÖÊı£¨²½ÊıÓëÊ±¼ä£¿£©
+                    alert("ä½ èµ¢äº†ï¼");
+                    //å€’è®¡æ—¶åœæ­¢
+                    //è®¡ç®—åˆ†æ•°ï¼ˆæ­¥æ•°ä¸æ—¶é—´ï¼Ÿï¼‰
 
-                    //´æ´¢ÅÅĞĞ°ñ
-                    //ÏÔÊ¾ÅÅĞĞ°ñ
+                    //å­˜å‚¨æ’è¡Œæ¦œ
+                    //æ˜¾ç¤ºæ’è¡Œæ¦œ
 
-                    //·µ»Ø³õÊ¼×´Ì¬
+                    //è¿”å›åˆå§‹çŠ¶æ€
                 }
                 clicklock = false;
             }
             else {
-                //ÅĞ¶ÏÊ§Îó¶àÉÙ´Î,Èç¹û³¬¹ıÔòGameOver ²¢ÖĞ¶Ï
+                //åˆ¤æ–­å¤±è¯¯å¤šå°‘æ¬¡,å¦‚æœè¶…è¿‡åˆ™GameOver å¹¶ä¸­æ–­
                 
                 $(this).addClass('open').addClass('show');
 
